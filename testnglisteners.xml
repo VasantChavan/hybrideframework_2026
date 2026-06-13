@@ -3,12 +3,12 @@
 <suite name="Suite">
 
 	<listeners>
-		<listener class-name="com.utility.MyListeners" />
+		<listener class-name="com.utility.ExtentReportManager" />
 	</listeners>
 	<test thread-count="5" name="Test">
 		<classes>
-			<class name="com.testcases.OrangeHRMLoginTestCases" />
-			<!--  <class name="com.testcases.LoginTest"/>-->
+			<!--  <class name="com.testcases.OrangeHRMLoginTestCases" />-->
+			<class name="com.testcases.LoginTest"/>
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

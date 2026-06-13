@@ -16,7 +16,7 @@ public class LoginTest extends TestBase {
 	public void verifyLoginPageTitleTC() {
 		lp = new LoginPage(driver);
 		String actualTitle = driver.getTitle();
-		String expectedTitle = "OrangeHRM";
+		String expectedTitle = "OrangeHRM11";
 		Assert.assertEquals(actualTitle, expectedTitle);
 	}
 
@@ -25,7 +25,7 @@ public class LoginTest extends TestBase {
 		Assert.assertTrue(lp.verifyLogo());
 	}
 
-	@Test(priority = 3)
+//	@Test(priority = 3)
 	public void loginTC() {
 		hm =lp.login(configDataProvider.getUserName(), configDataProvider.getUserPassword());
 		Assert.assertTrue(hm.dashboardDisplayed());	

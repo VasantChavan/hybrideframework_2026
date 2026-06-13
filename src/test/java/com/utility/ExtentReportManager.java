@@ -13,6 +13,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import com.testbase.TestBase;
 
 public class ExtentReportManager implements ITestListener {
 
@@ -24,7 +25,7 @@ public class ExtentReportManager implements ITestListener {
 
 		
 		String currentWorkingDirectory = System.getProperty("user.dir");
-		String customformat = new SimpleDateFormat("YYYY-mm-dd-HH-mm-ss").format(new Date());
+		String customformat = Utils.getCurrentTimeStamp();
 		File fs = new File(currentWorkingDirectory + "/reports/extent-report_"+customformat+".html");
 		extentSparkReporter = new ExtentSparkReporter(fs);
 
@@ -53,6 +54,13 @@ public class ExtentReportManager implements ITestListener {
 		extentTest = extentReports.createTest(result.getName());
 		extentTest.log(Status.FAIL, "Test case failed is : "+result.getName());
 		extentTest.log(Status.FAIL, "Test case failed is : "+result.getThrowable());
+		try {
+			String screenshotPath = TestBase.captureScreenshot(result.getName());
+			extentTest.addScreenCaptureFromPath(screenshotPath);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void onTestSkipped(ITestResult result) {
@@ -63,15 +71,6 @@ public class ExtentReportManager implements ITestListener {
 	public void onFinish(ITestContext context) {
 		extentReports.flush();
 	}
-	
-	
-	public static void main(String[] args) {
 		
-		Date currentDate = new Date();
-		System.out.println(currentDate);
-		
-		String requiredFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z").format(currentDate);
-		System.out.println(requiredFormat);
-	}
-
+	
 }
